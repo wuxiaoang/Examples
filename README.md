@@ -8,3 +8,9 @@
  
 参照：如何：发布符合 .NET Framework 准则的事件（C# 编程指南）
 https://docs.microsoft.com/zh-cn/previous-versions/w369ty8x%28v%3dvs.110%29
+
+
+## ThreadSafeCallsWinFormsControls
+线程安全地访问WinForm控件
+
+主要演示BackgroundWorker组件的用法
