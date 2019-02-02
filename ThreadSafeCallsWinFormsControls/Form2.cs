@@ -37,14 +37,32 @@ namespace ThreadSafeCallsWinFormsControls
         {
             updateTheTextBox();
         }
-
-        // 这个方法本身并没有问题，但是如果在窗体主线程之外的线程中调用这个方法，
-        // 就会发生如下异常：
-        // “System.InvalidOperationException:“线程间操作无效: 从不是创建控件“textBox1”的线程访问它。””
+        
         private void updateTheTextBox()
         {
             string text = "This text was updated ." + DateTime.Now.ToLongTimeString();
-            SetText(text);
+
+            // 方法 1：直接修改
+            //     这个方法本身并没有问题，但是如果在窗体主线程之外的线程中调用这个方法，
+            //     就会发生如下异常：
+            //         “System.InvalidOperationException:
+            //         “线程间操作无效: 从不是创建控件“textBox1”的线程访问它。””
+            //this.textBox1.Text = text;
+
+            // 方法 2：
+            //    所以，为了能够安全地跨线程修改控件属性，可以改用下面的方法：
+            //   （因为要访问ui资源，所以需要使用invoke方式同步ui。）
+            this.Invoke(
+                (EventHandler)
+                (delegate{
+                    this.textBox1.Text = text;
+                    }
+                )
+            );
+
+            // 或者采用另一种方法：
+            //方法 3：
+            //SetText(text);
         }
 
         delegate void setTextDelegate(string text);

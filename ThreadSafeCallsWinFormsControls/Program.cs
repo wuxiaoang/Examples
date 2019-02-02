@@ -16,7 +16,8 @@ namespace ThreadSafeCallsWinFormsControls
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new WithInvokeRequiredAndDelegate());
-            Application.Run(new FibonacciForm());
+            //Application.Run(new FibonacciForm());
+            Application.Run(new Form2());
         }
     }
 }
